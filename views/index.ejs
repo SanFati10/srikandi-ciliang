@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendataan UMKM Desa Ciliang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary mb-4 shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <span class="navbar-brand mb-0 h1">Sistem Pendataan Usaha Desa Ciliang</span>
+            <div>
+                <% if (isLoggedIn) { %>
+                    <span class="text-white me-3 small">Halo, Admin</span>
+                    <a href="/logout" class="btn btn-sm btn-outline-light">Logout</a>
+                <% } else { %>
+                    <a href="/login" class="btn btn-sm btn-light">Login Admin</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row g-4">
+            <!-- Form Input / Edit (Hanya Admin) -->
+            <div class="col-md-4">
+                <% if (isLoggedIn) { %>
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-white font-weight-bold">
+                            <%= editData ? 'Edit Data Usaha' : 'Tambah Usaha Baru' %>
+                        </div>
+                        <div class="card-body">
+                            <form action="<%= editData ? '/update/' + editData.id : '/tambah' %>" method="POST">
+                                <div class="mb-2">
+                                    <label class="form-label small">Nama Usaha</label>
+                                    <input type="text" name="nama_usaha" class="form-control" value="<%= editData ? editData.nama_usaha : '' %>" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small">Nama Pemilik</label>
+                                    <input type="text" name="nama_pemilik" class="form-control" value="<%= editData ? editData.nama_pemilik : '' %>" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small">Kategori</label>
+                                    <select name="kategori" class="form-select" required>
+                                        <option value="Kuliner" <%= editData && editData.kategori === 'Kuliner' ? 'selected' : '' %>>Kuliner</option>
+                                        <option value="Perdagangan" <%= editData && editData.kategori === 'Perdagangan' ? 'selected' : '' %>>Perdagangan</option>
+                                        <option value="Jasa" <%= editData && editData.kategori === 'Jasa' ? 'selected' : '' %>>Jasa</option>
+                                        <option value="Pertanian/Peternakan" <%= editData && editData.kategori === 'Pertanian/Peternakan' ? 'selected' : '' %>>Pertanian/Peternakan</option>
+                                        <option value="Lainnya" <%= editData && editData.kategori === 'Lainnya' ? 'selected' : '' %>>Lainnya</option>
+                                    </select>
+                                </div>
+
+                                <!-- Dropdown Jenis Usaha -->
+                                <div class="mb-2">
+                                    <label class="form-label small">Jenis Usaha</label>
+                                    <select name="jenis_usaha" class="form-select" required>
+                                        <option value="Kontinu" <%= editData && editData.jenis_usaha === 'Kontinu' ? 'selected' : '' %>>Kontinu</option>
+                                        <option value="Musiman" <%= editData && editData.jenis_usaha === 'Musiman' ? 'selected' : '' %>>Musiman</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label small">Alamat</label>
+                                    <textarea name="alamat" class="form-control" rows="2" required><%= editData ? editData.alamat : '' %></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small">No. HP / WhatsApp</label>
+                                    <input type="text" name="no_hp" class="form-control" value="<%= editData ? editData.no_hp : '' %>" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100"><%= editData ? 'Simpan Perubahan' : 'Tambah Data' %></button>
+                                <% if (editData) { %>
+                                    <a href="/" class="btn btn-link w-100 mt-1 text-secondary text-decoration-none small">Batal Edit</a>
+                                <% } %>
+                            </form>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="card shadow-sm border-0 p-3 text-center">
+                        <p class="text-muted mb-2 small">Anda mengakses halaman ini sebagai pengunjung.</p>
+                        <a href="/login" class="btn btn-outline-primary btn-sm">Login Admin untuk Kelola Data</a>
+                    </div>
+                <% } %>
+            </div>
+
+            <!-- Tabel Data Usaha -->
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold">Daftar Usaha Desa</span>
+                        <span class="badge bg-primary"><%= listUsaha.length %> Data</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Nama Usaha</th>
+                                        <th>Pemilik</th>
+                                        <th>Kategori & Jenis</th>
+                                        <th>No HP</th>
+                                        <% if (isLoggedIn) { %>
+                                            <th class="text-center">Aksi</th>
+                                        <% } %>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (listUsaha.length === 0) { %>
+                                        <tr>
+                                            <td colspan="<%= isLoggedIn ? 5 : 4 %>" class="text-center py-4 text-muted">Belum ada data usaha terdaftar.</td>
+                                        </tr>
+                                    <% } %>
+                                    <% listUsaha.forEach(u => { %>
+                                        <tr>
+                                            <td>
+                                                <strong><%= u.nama_usaha %></strong><br>
+                                                <small class="text-muted"><%= u.alamat %></small>
+                                            </td>
+                                            <td><%= u.nama_pemilik %></td>
+                                            <td>
+                                                <span class="badge bg-secondary"><%= u.kategori %></span><br>
+                                                <span class="badge <%= u.jenis_usaha === 'Musiman' ? 'bg-warning text-dark' : 'bg-info text-dark' %> mt-1">
+                                                    <%= u.jenis_usaha || 'Kontinu' %>
+                                                </span>
+                                            </td>
+                                            <td><%= u.no_hp %></td>
+                                            <% if (isLoggedIn) { %>
+                                                <td class="text-center">
+                                                    <a href="/edit/<%= u.id %>" class="btn btn-sm btn-outline-warning">Edit</a>
+                                                    <form action="/hapus/<%= u.id %>" method="POST" class="d-inline" onsubmit="return confirm('Hapus data ini?')">
+                                                        <button class="btn btn-sm btn-outline-danger">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            <% } %>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
