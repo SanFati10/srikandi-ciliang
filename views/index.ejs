@@ -456,7 +456,7 @@
                 <% if (isLoggedIn) { %>
                     <div class="card shadow-sm border-0">
                         <div class="card-header font-weight-bold">
-                            <%= editData ? '✎ Edit Usaha' : '➕ Tambah Usaha' %>
+                            <%= editData ? '✎ Edit Usaha' : 'Tambah Usaha' %>
                         </div>
                         <div class="card-body">
                             <form action="<%= editData ? '/update/' + editData.id : '/tambah' %>" method="POST">
@@ -512,7 +512,7 @@
             <div class="col-md-8 fade-up delay-1">
                 <div class="card shadow-sm border-0">
                     <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-                        <span class="font-weight-bold">📋 Daftar Usaha</span>
+                        <span class="font-weight-bold">Daftar Usaha</span>
                         <span class="badge bg-primary"><%= listUsaha.length %> Data</span>
                     </div>
                     <div class="card-body p-0">
