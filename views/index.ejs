@@ -2,11 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendataan UMKM Desa Ciliang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Pendataan UMKM · Desa Ciliang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ===== ROOT ===== */
         :root {
             --navy-900: #0B1330;
             --navy-800: #101B45;
@@ -31,19 +32,19 @@
                 var(--bg) !important;
             color: var(--ink);
             min-height: 100vh;
+            padding-bottom: 2rem;
         }
 
         h1, h2, h3, .navbar-brand, .card-header {
             font-family: 'Sora', sans-serif;
         }
 
-        /* ---------- Navbar ---------- */
+        /* ===== NAVBAR ===== */
         .navbar.bg-primary {
             background: linear-gradient(115deg, var(--navy-900) 0%, var(--navy-700) 55%, var(--navy-500) 100%) !important;
             position: relative;
             overflow: hidden;
-            padding-top: 1.1rem;
-            padding-bottom: 1.1rem;
+            padding: 0.75rem 1rem;
             box-shadow: 0 10px 30px -12px rgba(11, 19, 48, 0.5);
         }
 
@@ -63,38 +64,42 @@
             100% { background-position: 150% 0; }
         }
 
-        /* Wrapper that holds the logo image + brand text together */
         .navbar-brand-group {
             display: flex;
             align-items: center;
-            gap: 0.65rem;
+            gap: 0.5rem;
             position: relative;
             z-index: 1;
+            flex-wrap: wrap;
         }
 
         .navbar-logo {
-            height: 44px;
-            width: 44px;
-            object-fit:inherit;
+            height: 38px;
+            width: 38px;
+            object-fit: cover;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.08);
             padding: 2px;
-            
         }
 
         .navbar-brand {
-            background: linear-gradient(90deg, #172561, var(--pink-300));
+            background: linear-gradient(90deg, #fff, var(--pink-300));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
         }
 
         .navbar .btn-outline-light {
-            border-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.4);
             transition: all 0.25s ease;
             position: relative;
             z-index: 1;
+            font-size: 0.75rem;
+            padding: 0.35rem 0.8rem;
         }
         .navbar .btn-outline-light:hover {
             background: var(--pink-500);
@@ -107,6 +112,8 @@
             border: none;
             color: #fff;
             font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.35rem 0.9rem;
             box-shadow: 0 6px 16px -6px rgba(255, 77, 141, 0.6);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
@@ -118,7 +125,7 @@
             color: #fff;
         }
 
-        /* ---------- Fade-up entrance ---------- */
+        /* ===== FADE ===== */
         .fade-up {
             animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
@@ -130,33 +137,38 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ---------- Cards ---------- */
+        /* ===== CARDS ===== */
         .card {
-            border-radius: 18px;
+            border-radius: 20px;
             border: 1px solid rgba(23, 37, 97, 0.06);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
 
         .card.shadow-sm {
-            box-shadow: 0 6px 24px -10px rgba(23, 37, 97, 0.15) !important;
+            box-shadow: 0 8px 28px -12px rgba(23, 37, 97, 0.18) !important;
         }
 
         .card-header {
             background: linear-gradient(90deg, var(--navy-900), var(--navy-700)) !important;
             color: #fff !important;
             font-weight: 700;
-            border-radius: 18px 18px 0 0 !important;
+            border-radius: 20px 20px 0 0 !important;
             border: none !important;
-            padding: 0.9rem 1.1rem;
+            padding: 0.8rem 1rem;
             letter-spacing: 0.01em;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
         }
 
         .card-header .badge.bg-primary {
             background: linear-gradient(120deg, var(--pink-500), var(--pink-400)) !important;
             font-weight: 600;
-            padding: 0.45em 0.8em;
+            padding: 0.4em 0.8em;
             border-radius: 999px;
             animation: pulseBadge 2.4s ease-in-out infinite;
+            font-size: 0.7rem;
         }
 
         @keyframes pulseBadge {
@@ -164,26 +176,31 @@
             50% { box-shadow: 0 0 0 6px rgba(255, 77, 141, 0); }
         }
 
-        /* ---------- Form ---------- */
+        /* ===== FORM ===== */
         .form-label {
             color: var(--muted);
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
         }
 
         .form-control, .form-select {
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1.5px solid #E4E6F5;
             padding: 0.55rem 0.8rem;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
         }
 
         .form-control:focus, .form-select:focus {
             border-color: var(--pink-400);
             box-shadow: 0 0 0 4px rgba(255, 77, 141, 0.14);
             transform: translateY(-1px);
+            background: #fff;
         }
 
         .btn-primary {
@@ -191,10 +208,11 @@
             border: none;
             font-weight: 700;
             padding: 0.65rem 1rem;
-            border-radius: 10px;
+            border-radius: 12px;
             position: relative;
             overflow: hidden;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-size: 0.9rem;
         }
 
         .btn-primary::before {
@@ -217,14 +235,16 @@
         .btn-link.text-secondary {
             color: var(--muted) !important;
             transition: color 0.2s ease;
+            font-size: 0.8rem;
         }
         .btn-link.text-secondary:hover { color: var(--pink-500) !important; }
 
-        /* Guest card */
+        /* guest card */
         .card.p-3.text-center {
             background: linear-gradient(160deg, var(--navy-900), var(--navy-700));
             color: #fff;
-            padding: 2rem 1.25rem !important;
+            padding: 1.75rem 1rem !important;
+            border-radius: 20px;
         }
         .card.p-3.text-center .text-muted {
             color: rgba(255, 255, 255, 0.7) !important;
@@ -235,6 +255,8 @@
             font-weight: 600;
             border-radius: 999px;
             transition: all 0.25s ease;
+            font-size: 0.8rem;
+            padding: 0.4rem 1.2rem;
         }
         .card.p-3.text-center .btn-outline-primary:hover {
             background: var(--pink-500);
@@ -243,17 +265,17 @@
             transform: translateY(-2px);
         }
 
-        /* ---------- Table ---------- */
+        /* ===== TABLE ===== */
         .table thead.table-light th {
             background: linear-gradient(180deg, #F6F7FD, #EEF0FA) !important;
             color: var(--navy-800);
             text-transform: uppercase;
-            font-size: 0.72rem;
+            font-size: 0.6rem;
             letter-spacing: 0.06em;
             font-weight: 700;
             border-bottom: 2px solid rgba(42, 59, 143, 0.1);
-            padding-top: 0.9rem;
-            padding-bottom: 0.9rem;
+            padding: 0.7rem 0.5rem;
+            white-space: nowrap;
         }
 
         .table tbody tr {
@@ -270,14 +292,23 @@
             background: linear-gradient(90deg, rgba(255, 77, 141, 0.05), rgba(42, 59, 143, 0.05)) !important;
         }
 
-        .table td { vertical-align: middle; padding-top: 0.85rem; padding-bottom: 0.85rem; }
+        .table td {
+            vertical-align: middle;
+            padding: 0.7rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .table td strong {
+            font-size: 0.9rem;
+        }
 
         .badge.bg-secondary {
             background: rgba(42, 59, 143, 0.1) !important;
             color: var(--navy-700) !important;
             font-weight: 600;
             border-radius: 999px;
-            padding: 0.4em 0.75em;
+            padding: 0.3em 0.7em;
+            font-size: 0.65rem;
         }
 
         .badge.bg-info {
@@ -285,6 +316,7 @@
             color: #fff !important;
             border-radius: 999px;
             font-weight: 600;
+            font-size: 0.65rem;
         }
 
         .badge.bg-warning {
@@ -292,6 +324,7 @@
             color: #fff !important;
             border-radius: 999px;
             font-weight: 600;
+            font-size: 0.65rem;
         }
 
         .btn-outline-warning {
@@ -299,6 +332,8 @@
             border-color: var(--pink-300);
             border-radius: 8px;
             transition: all 0.2s ease;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
         }
         .btn-outline-warning:hover {
             background: var(--pink-500);
@@ -310,11 +345,81 @@
         .btn-outline-danger {
             border-radius: 8px;
             transition: all 0.2s ease;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
         }
         .btn-outline-danger:hover {
             transform: translateY(-1px);
         }
 
+        /* ===== MOBILE FIRST TWEAKS ===== */
+        @media (max-width: 767.98px) {
+            .navbar-brand-group {
+                gap: 0.3rem;
+            }
+            .navbar-logo {
+                height: 30px;
+                width: 30px;
+            }
+            .navbar-brand {
+                font-size: 0.95rem;
+                white-space: normal;
+            }
+
+            .card-header {
+                font-size: 0.9rem;
+                padding: 0.65rem 0.9rem;
+            }
+
+            .table td, .table th {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.3rem;
+            }
+            .table td strong {
+                font-size: 0.8rem;
+            }
+            .badge {
+                font-size: 0.6rem !important;
+            }
+
+            .btn-outline-warning, .btn-outline-danger {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.5rem;
+            }
+
+            .form-control, .form-select {
+                font-size: 0.85rem;
+                padding: 0.45rem 0.65rem;
+            }
+            .btn-primary {
+                font-size: 0.85rem;
+                padding: 0.55rem 0.8rem;
+            }
+
+            .card.p-3.text-center {
+                padding: 1.25rem 0.8rem !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .navbar-brand {
+                font-size: 0.8rem;
+            }
+            .navbar-logo {
+                height: 26px;
+                width: 26px;
+            }
+            .navbar .btn-light, .navbar .btn-outline-light {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.6rem;
+            }
+            .table td, .table th {
+                font-size: 0.65rem;
+                padding: 0.4rem 0.2rem;
+            }
+        }
+
+        /* ===== REDUCE MOTION ===== */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.001ms !important;
@@ -324,18 +429,18 @@
         }
     </style>
 </head>
-<body class="bg-light">
-    <!-- Navbar -->
-    <nav class="navbar navbar-dark mb-4">
-        <div class="container d-flex justify-content-between">
-            <span class="navbar-brand-group">
-                <img src="/images/ciliang.png" alt="Logo Srikandi Usaha Ciliang" class="navbar-logo">
-                <img src="/images/logo.png" alt="Logo Srikandi Usaha Ciliang" class="navbar-logo">
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-dark bg-primary mb-3 mb-md-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="navbar-brand-group">
+                <img src="/images/ciliang.png" alt="Logo" class="navbar-logo" loading="lazy">
+                <img src="/images/logo.png" alt="Logo" class="navbar-logo" loading="lazy">
                 <span class="navbar-brand mb-0 h1">Srikandi Usaha Ciliang</span>
-            </span>
-            <div>
+            </div>
+            <div class="d-flex gap-2">
                 <% if (isLoggedIn) { %>
-                    <span class="text-white me-3 small" style="position: relative; z-index: 1;">Halo, Admin</span>
+                    <span class="text-white small d-none d-sm-inline" style="position:relative;z-index:1;">Halo, Admin</span>
                     <a href="/logout" class="btn btn-sm btn-outline-light">Logout</a>
                 <% } else { %>
                     <a href="/login" class="btn btn-sm btn-light">Login Admin</a>
@@ -344,14 +449,14 @@
         </div>
     </nav>
 
-    <div class="container pb-5">
-        <div class="row g-4">
-            <!-- Form Input / Edit (Hanya Admin) -->
+    <div class="container pb-4">
+        <div class="row g-3 g-md-4">
+            <!-- ===== FORM (Admin only) ===== -->
             <div class="col-md-4 fade-up">
                 <% if (isLoggedIn) { %>
                     <div class="card shadow-sm border-0">
                         <div class="card-header font-weight-bold">
-                            <%= editData ? 'Edit Data Usaha' : 'Tambah Usaha Baru' %>
+                            <%= editData ? '✎ Edit Usaha' : '➕ Tambah Usaha' %>
                         </div>
                         <div class="card-body">
                             <form action="<%= editData ? '/update/' + editData.id : '/tambah' %>" method="POST">
@@ -373,8 +478,6 @@
                                         <option value="Lainnya" <%= editData && editData.kategori === 'Lainnya' ? 'selected' : '' %>>Lainnya</option>
                                     </select>
                                 </div>
-
-                                <!-- Dropdown Jenis Usaha -->
                                 <div class="mb-2">
                                     <label class="form-label small">Jenis Usaha</label>
                                     <select name="jenis_usaha" class="form-select" required>
@@ -382,7 +485,6 @@
                                         <option value="Musiman" <%= editData && editData.jenis_usaha === 'Musiman' ? 'selected' : '' %>>Musiman</option>
                                     </select>
                                 </div>
-
                                 <div class="mb-2">
                                     <label class="form-label small">Alamat</label>
                                     <textarea name="alamat" class="form-control" rows="2" required><%= editData ? editData.alamat : '' %></textarea>
@@ -393,34 +495,34 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100"><span><%= editData ? 'Simpan Perubahan' : 'Tambah Data' %></span></button>
                                 <% if (editData) { %>
-                                    <a href="/" class="btn btn-link w-100 mt-1 text-secondary text-decoration-none small">Batal Edit</a>
+                                    <a href="/" class="btn btn-link w-100 mt-1 text-secondary text-decoration-none small">← Batal Edit</a>
                                 <% } %>
                             </form>
                         </div>
                     </div>
                 <% } else { %>
                     <div class="card shadow-sm border-0 p-3 text-center">
-                        <p class="text-muted mb-2 small">Anda mengakses halaman ini sebagai pengunjung.</p>
-                        <a href="/login" class="btn btn-outline-primary btn-sm">Login Admin untuk Kelola Data</a>
+                        <p class="text-muted mb-2 small">Anda mengakses sebagai pengunjung.</p>
+                        <a href="/login" class="btn btn-outline-primary btn-sm">Login Admin untuk Kelola</a>
                     </div>
                 <% } %>
             </div>
 
-            <!-- Tabel Data Usaha -->
+            <!-- ===== TABLE ===== -->
             <div class="col-md-8 fade-up delay-1">
                 <div class="card shadow-sm border-0">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span class="font-weight-bold">Daftar Usaha Desa</span>
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                        <span class="font-weight-bold">📋 Daftar Usaha</span>
                         <span class="badge bg-primary"><%= listUsaha.length %> Data</span>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="border-radius: 0 0 20px 20px;">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Nama Usaha</th>
                                         <th>Pemilik</th>
-                                        <th>Kategori & Jenis</th>
+                                        <th>Kategori &amp; Jenis</th>
                                         <th>No HP</th>
                                         <% if (isLoggedIn) { %>
                                             <th class="text-center">Aksi</th>
@@ -434,25 +536,28 @@
                                         </tr>
                                     <% } %>
                                     <% listUsaha.forEach((u, i) => { %>
-                                        <tr style="animation-delay: <%= Math.min(i * 0.05, 0.4) %>s">
+                                        <tr style="animation-delay: <%= Math.min(i * 0.04, 0.4) %>s">
                                             <td>
                                                 <strong><%= u.nama_usaha %></strong><br>
-                                                <small class="text-muted"><%= u.alamat %></small>
+                                                <small class="text-muted d-none d-sm-inline"><%= u.alamat %></small>
+                                                <small class="text-muted d-sm-none"><%= u.alamat.substring(0, 20) + (u.alamat.length > 20 ? '…' : '') %></small>
                                             </td>
                                             <td><%= u.nama_pemilik %></td>
                                             <td>
                                                 <span class="badge bg-secondary"><%= u.kategori %></span><br>
-                                                <span class="badge <%= u.jenis_usaha === 'Musiman' ? 'bg-warning text-dark' : 'bg-info text-dark' %> mt-1">
+                                                <span class="badge <%= u.jenis_usaha === 'Musiman' ? 'bg-warning' : 'bg-info' %> mt-1">
                                                     <%= u.jenis_usaha || 'Kontinu' %>
                                                 </span>
                                             </td>
                                             <td><%= u.no_hp %></td>
                                             <% if (isLoggedIn) { %>
                                                 <td class="text-center">
-                                                    <a href="/edit/<%= u.id %>" class="btn btn-sm btn-outline-warning">Edit</a>
-                                                    <form action="/hapus/<%= u.id %>" method="POST" class="d-inline" onsubmit="return confirm('Hapus data ini?')">
-                                                        <button class="btn btn-sm btn-outline-danger">Hapus</button>
-                                                    </form>
+                                                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                                        <a href="/edit/<%= u.id %>" class="btn btn-sm btn-outline-warning">Edit</a>
+                                                        <form action="/hapus/<%= u.id %>" method="POST" class="d-inline" onsubmit="return confirm('Hapus data ini?')">
+                                                            <button class="btn btn-sm btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             <% } %>
                                         </tr>
