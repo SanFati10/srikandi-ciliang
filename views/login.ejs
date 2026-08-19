@@ -5,6 +5,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Pendataan Desa Ciliang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-900: #0B1330;
+            --navy-800: #101B45;
+            --navy-700: #172561;
+            --navy-500: #2A3B8F;
+            --pink-500: #FF4D8D;
+            --pink-400: #FF7CA8;
+            --pink-300: #FFB3CB;
+            --ink: #17193B;
+            --muted: #6B7091;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 45%, var(--navy-500) 85%);
+            position: relative;
+            overflow: hidden;
+            color: var(--ink);
+        }
+
+        /* Ambient glow blobs */
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::before {
+            width: 480px;
+            height: 480px;
+            top: -140px;
+            right: -120px;
+            background: radial-gradient(circle, rgba(255, 77, 141, 0.45), transparent 70%);
+            animation: float1 9s ease-in-out infinite;
+        }
+        body::after {
+            width: 420px;
+            height: 420px;
+            bottom: -160px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(255, 179, 203, 0.25), transparent 70%);
+            animation: float2 11s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-25px, 25px) scale(1.08); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.05); }
+        }
+
+        .container { position: relative; z-index: 1; }
+
+        h4.card-title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            color: var(--navy-900);
+        }
+
+        .card {
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 25px 60px -20px rgba(11, 19, 48, 0.55) !important;
+            animation: cardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(18px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Small brand accent above the title */
+        .card-body::before {
+            content: "";
+            display: block;
+            width: 46px;
+            height: 4px;
+            border-radius: 999px;
+            margin: 0 auto 1.1rem auto;
+            background: linear-gradient(90deg, var(--navy-700), var(--pink-500));
+        }
+
+        .form-label {
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1.5px solid #E4E6F5;
+            padding: 0.6rem 0.85rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--pink-400);
+            box-shadow: 0 0 0 4px rgba(255, 77, 141, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--navy-800), var(--navy-500));
+            border: none;
+            font-weight: 700;
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, var(--pink-500), var(--pink-400));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary span { position: relative; z-index: 1; }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(42, 59, 143, 0.5);
+        }
+        .btn-primary:hover::before { opacity: 1; }
+
+        .btn-link.text-secondary {
+            color: var(--muted) !important;
+            transition: color 0.2s ease;
+        }
+        .btn-link.text-secondary:hover { color: var(--pink-500) !important; }
+
+        .alert-danger {
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 77, 141, 0.12);
+            color: #C1275A;
+            font-weight: 500;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
 </head>
 <body class="bg-light d-flex align-items-center vh-100">
     <div class="container">
@@ -13,7 +185,7 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
                         <h4 class="card-title text-center mb-4">Login Admin</h4>
-                        
+
                         <% if (error) { %>
                             <div class="alert alert-danger small py-2"><%= error %></div>
                         <% } %>
@@ -27,7 +199,7 @@
                                 <label class="form-label small">Password</label>
                                 <input type="password" name="password" class="form-control" required placeholder="Ketik 'admin123'">
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Masuk</button>
+                            <button type="submit" class="btn btn-primary w-100"><span>Masuk</span></button>
                             <a href="/" class="btn btn-link w-100 mt-2 text-secondary text-decoration-none small text-center">Kembali ke Beranda</a>
                         </form>
                     </div>

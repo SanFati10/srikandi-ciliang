@@ -5,15 +5,337 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendataan UMKM Desa Ciliang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-900: #0B1330;
+            --navy-800: #101B45;
+            --navy-700: #172561;
+            --navy-500: #2A3B8F;
+            --pink-500: #FF4D8D;
+            --pink-400: #FF7CA8;
+            --pink-300: #FFB3CB;
+            --ink: #17193B;
+            --muted: #6B7091;
+            --surface: #f7d1d7;
+            --bg: #dfe4ff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background:
+                radial-gradient(1100px 500px at 100% -10%, rgba(255, 77, 141, 0.14), transparent 60%),
+                radial-gradient(900px 500px at -10% 10%, rgba(42, 59, 143, 0.12), transparent 55%),
+                var(--bg) !important;
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .navbar-brand, .card-header {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* ---------- Navbar ---------- */
+        .navbar.bg-primary {
+            background: linear-gradient(115deg, var(--navy-900) 0%, var(--navy-700) 55%, var(--navy-500) 100%) !important;
+            position: relative;
+            overflow: hidden;
+            padding-top: 1.1rem;
+            padding-bottom: 1.1rem;
+            box-shadow: 0 10px 30px -12px rgba(11, 19, 48, 0.5);
+        }
+
+        .navbar.bg-primary::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(100deg, transparent 40%, rgba(255, 77, 141, 0.35) 50%, transparent 60%);
+            background-size: 250% 100%;
+            animation: sheen 7s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sheen {
+            0% { background-position: 150% 0; }
+            50% { background-position: -50% 0; }
+            100% { background-position: 150% 0; }
+        }
+
+        /* Wrapper that holds the logo image + brand text together */
+        .navbar-brand-group {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar-logo {
+            height: 44px;
+            width: 44px;
+            object-fit:inherit;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px;
+            
+        }
+
+        .navbar-brand {
+            background: linear-gradient(90deg, #172561, var(--pink-300));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .navbar .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.25s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .navbar .btn-outline-light:hover {
+            background: var(--pink-500);
+            border-color: var(--pink-500);
+            transform: translateY(-1px);
+        }
+
+        .navbar .btn-light {
+            background: linear-gradient(120deg, var(--pink-500), var(--pink-400));
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 6px 16px -6px rgba(255, 77, 141, 0.6);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .navbar .btn-light:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -6px rgba(255, 77, 141, 0.7);
+            color: #fff;
+        }
+
+        /* ---------- Fade-up entrance ---------- */
+        .fade-up {
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .fade-up.delay-1 { animation-delay: 0.08s; }
+        .fade-up.delay-2 { animation-delay: 0.16s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- Cards ---------- */
+        .card {
+            border-radius: 18px;
+            border: 1px solid rgba(23, 37, 97, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card.shadow-sm {
+            box-shadow: 0 6px 24px -10px rgba(23, 37, 97, 0.15) !important;
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, var(--navy-900), var(--navy-700)) !important;
+            color: #fff !important;
+            font-weight: 700;
+            border-radius: 18px 18px 0 0 !important;
+            border: none !important;
+            padding: 0.9rem 1.1rem;
+            letter-spacing: 0.01em;
+        }
+
+        .card-header .badge.bg-primary {
+            background: linear-gradient(120deg, var(--pink-500), var(--pink-400)) !important;
+            font-weight: 600;
+            padding: 0.45em 0.8em;
+            border-radius: 999px;
+            animation: pulseBadge 2.4s ease-in-out infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 77, 141, 0.45); }
+            50% { box-shadow: 0 0 0 6px rgba(255, 77, 141, 0); }
+        }
+
+        /* ---------- Form ---------- */
+        .form-label {
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1.5px solid #E4E6F5;
+            padding: 0.55rem 0.8rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--pink-400);
+            box-shadow: 0 0 0 4px rgba(255, 77, 141, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--navy-800), var(--navy-500));
+            border: none;
+            font-weight: 700;
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, var(--pink-500), var(--pink-400));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary span, .btn-primary { position: relative; z-index: 1; }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px -8px rgba(42, 59, 143, 0.55);
+        }
+        .btn-primary:hover::before { opacity: 1; }
+
+        .btn-link.text-secondary {
+            color: var(--muted) !important;
+            transition: color 0.2s ease;
+        }
+        .btn-link.text-secondary:hover { color: var(--pink-500) !important; }
+
+        /* Guest card */
+        .card.p-3.text-center {
+            background: linear-gradient(160deg, var(--navy-900), var(--navy-700));
+            color: #fff;
+            padding: 2rem 1.25rem !important;
+        }
+        .card.p-3.text-center .text-muted {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        .card.p-3.text-center .btn-outline-primary {
+            border-color: var(--pink-400);
+            color: var(--pink-300);
+            font-weight: 600;
+            border-radius: 999px;
+            transition: all 0.25s ease;
+        }
+        .card.p-3.text-center .btn-outline-primary:hover {
+            background: var(--pink-500);
+            border-color: var(--pink-500);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Table ---------- */
+        .table thead.table-light th {
+            background: linear-gradient(180deg, #F6F7FD, #EEF0FA) !important;
+            color: var(--navy-800);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(42, 59, 143, 0.1);
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+        }
+
+        .table tbody tr {
+            transition: background 0.2s ease, transform 0.2s ease;
+            animation: rowIn 0.45s ease both;
+        }
+
+        @keyframes rowIn {
+            from { opacity: 0; transform: translateX(-6px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .table-hover tbody tr:hover {
+            background: linear-gradient(90deg, rgba(255, 77, 141, 0.05), rgba(42, 59, 143, 0.05)) !important;
+        }
+
+        .table td { vertical-align: middle; padding-top: 0.85rem; padding-bottom: 0.85rem; }
+
+        .badge.bg-secondary {
+            background: rgba(42, 59, 143, 0.1) !important;
+            color: var(--navy-700) !important;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 0.4em 0.75em;
+        }
+
+        .badge.bg-info {
+            background: rgba(42, 59, 143, 0.85) !important;
+            color: #fff !important;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .badge.bg-warning {
+            background: linear-gradient(120deg, var(--pink-500), var(--pink-400)) !important;
+            color: #fff !important;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .btn-outline-warning {
+            color: var(--pink-500);
+            border-color: var(--pink-300);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-outline-warning:hover {
+            background: var(--pink-500);
+            border-color: var(--pink-500);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-danger {
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-outline-danger:hover {
+            transform: translateY(-1px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
 </head>
 <body class="bg-light">
     <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-primary mb-4 shadow-sm">
+    <nav class="navbar navbar-dark mb-4">
         <div class="container d-flex justify-content-between">
-            <span class="navbar-brand mb-0 h1">Srikandi Usaha Ciliang</span>
+            <span class="navbar-brand-group">
+                <img src="/images/ciliang.png" alt="Logo Srikandi Usaha Ciliang" class="navbar-logo">
+                <img src="/images/logo.png" alt="Logo Srikandi Usaha Ciliang" class="navbar-logo">
+                <span class="navbar-brand mb-0 h1">Srikandi Usaha Ciliang</span>
+            </span>
             <div>
                 <% if (isLoggedIn) { %>
-                    <span class="text-white me-3 small">Halo, Admin</span>
+                    <span class="text-white me-3 small" style="position: relative; z-index: 1;">Halo, Admin</span>
                     <a href="/logout" class="btn btn-sm btn-outline-light">Logout</a>
                 <% } else { %>
                     <a href="/login" class="btn btn-sm btn-light">Login Admin</a>
@@ -22,13 +344,13 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container pb-5">
         <div class="row g-4">
             <!-- Form Input / Edit (Hanya Admin) -->
-            <div class="col-md-4">
+            <div class="col-md-4 fade-up">
                 <% if (isLoggedIn) { %>
                     <div class="card shadow-sm border-0">
-                        <div class="card-header bg-white font-weight-bold">
+                        <div class="card-header font-weight-bold">
                             <%= editData ? 'Edit Data Usaha' : 'Tambah Usaha Baru' %>
                         </div>
                         <div class="card-body">
@@ -69,7 +391,7 @@
                                     <label class="form-label small">No. HP / WhatsApp</label>
                                     <input type="text" name="no_hp" class="form-control" value="<%= editData ? editData.no_hp : '' %>" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100"><%= editData ? 'Simpan Perubahan' : 'Tambah Data' %></button>
+                                <button type="submit" class="btn btn-primary w-100"><span><%= editData ? 'Simpan Perubahan' : 'Tambah Data' %></span></button>
                                 <% if (editData) { %>
                                     <a href="/" class="btn btn-link w-100 mt-1 text-secondary text-decoration-none small">Batal Edit</a>
                                 <% } %>
@@ -85,9 +407,9 @@
             </div>
 
             <!-- Tabel Data Usaha -->
-            <div class="col-md-8">
+            <div class="col-md-8 fade-up delay-1">
                 <div class="card shadow-sm border-0">
-                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <span class="font-weight-bold">Daftar Usaha Desa</span>
                         <span class="badge bg-primary"><%= listUsaha.length %> Data</span>
                     </div>
@@ -111,8 +433,8 @@
                                             <td colspan="<%= isLoggedIn ? 5 : 4 %>" class="text-center py-4 text-muted">Belum ada data usaha terdaftar.</td>
                                         </tr>
                                     <% } %>
-                                    <% listUsaha.forEach(u => { %>
-                                        <tr>
+                                    <% listUsaha.forEach((u, i) => { %>
+                                        <tr style="animation-delay: <%= Math.min(i * 0.05, 0.4) %>s">
                                             <td>
                                                 <strong><%= u.nama_usaha %></strong><br>
                                                 <small class="text-muted"><%= u.alamat %></small>
